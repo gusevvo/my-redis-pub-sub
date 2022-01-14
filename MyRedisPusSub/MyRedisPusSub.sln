@@ -2,6 +2,13 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyRedisPusSub", "MyRedisPusSub\MyRedisPusSub.csproj", "{F3ABA51D-3812-494F-90B9-77096E9FB9DB}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{C5443CBB-81FD-41F6-898B-578A501DC48E}"
+	ProjectSection(SolutionItems) = preProject
+		..\docker-compose.yml = ..\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValueGenerator", "ValueGenerator\ValueGenerator.csproj", "{F663F19C-99F5-4B88-BEED-702E35F96128}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +19,9 @@ Global
 		{F3ABA51D-3812-494F-90B9-77096E9FB9DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3ABA51D-3812-494F-90B9-77096E9FB9DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3ABA51D-3812-494F-90B9-77096E9FB9DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F663F19C-99F5-4B88-BEED-702E35F96128}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F663F19C-99F5-4B88-BEED-702E35F96128}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F663F19C-99F5-4B88-BEED-702E35F96128}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F663F19C-99F5-4B88-BEED-702E35F96128}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
