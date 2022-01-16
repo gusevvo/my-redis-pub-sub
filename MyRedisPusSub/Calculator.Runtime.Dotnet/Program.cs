@@ -9,7 +9,7 @@ builder.Services.AddTransient<ICalculationService, CalculationService>();
 builder.Services.AddTransient<IParametersTransformationService, ParametersTransformationService>();
 builder.Services.AddActors(options =>
 {
-    options.Actors.RegisterActor<CalculatorActor>();
+    options.Actors.RegisterActor<DotnetCalculatorActor>();
 });
 var app = builder.Build();
 

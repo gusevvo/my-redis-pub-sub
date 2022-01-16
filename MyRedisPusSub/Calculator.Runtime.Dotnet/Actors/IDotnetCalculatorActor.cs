@@ -3,7 +3,7 @@ using Dapr.Actors;
 
 namespace Calculator.Runtime.Dotnet.Actors;
 
-public interface ICalculatorActor : IActor
+public interface IDotnetCalculatorActor : IActor
 {
     Task<object> Execute(Calculation calculation);
 }

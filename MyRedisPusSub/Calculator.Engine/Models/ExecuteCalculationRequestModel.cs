@@ -2,6 +2,7 @@ namespace Calculator.Engine.Models;
 
 public record ExecuteCalculationRequestModel(
     string Expression,
+    Runtime Runtime,
     ICollection<ParameterModel> Parameters);
 
 public record ParameterModel(string Alias, string Value, ParameterType ParameterType);

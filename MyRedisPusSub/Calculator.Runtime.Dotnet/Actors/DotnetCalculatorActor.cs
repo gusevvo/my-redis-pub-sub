@@ -4,16 +4,16 @@ using Dapr.Actors.Runtime;
 
 namespace Calculator.Runtime.Dotnet.Actors;
 
-public class CalculatorActor : Actor, ICalculatorActor
+public class DotnetCalculatorActor : Actor, IDotnetCalculatorActor
 {
     private readonly ICalculationService _calculationService;
     private readonly IParametersTransformationService _transformationService;
-    private readonly ILogger<CalculatorActor> _logger;
+    private readonly ILogger<DotnetCalculatorActor> _logger;
 
-    public CalculatorActor(ActorHost host,
+    public DotnetCalculatorActor(ActorHost host,
         ICalculationService calculationService,
         IParametersTransformationService transformationService,
-        ILogger<CalculatorActor> logger) : base(host)
+        ILogger<DotnetCalculatorActor> logger) : base(host)
     {
         _calculationService = calculationService;
         _transformationService = transformationService;

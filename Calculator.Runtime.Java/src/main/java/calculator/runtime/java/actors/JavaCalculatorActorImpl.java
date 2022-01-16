@@ -6,9 +6,9 @@ import io.dapr.actors.runtime.AbstractActor;
 import io.dapr.actors.runtime.ActorRuntimeContext;
 import reactor.core.publisher.Mono;
 
-public class CalculatorActorImpl extends AbstractActor implements CalculatorActor {
+public class JavaCalculatorActorImpl extends AbstractActor implements JavaCalculatorActor {
 
-    public CalculatorActorImpl(ActorRuntimeContext runtimeContext, ActorId id) {
+    public JavaCalculatorActorImpl(ActorRuntimeContext runtimeContext, ActorId id) {
         super(runtimeContext, id);
     }
 

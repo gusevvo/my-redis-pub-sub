@@ -4,20 +4,30 @@ plugins {
     id 'java'
 }
 
+bootJar.archiveFileName = getRootProject().getName() + ".jar"
 group = 'calculator.runtime.java'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_16
+}
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-//    implementation group: 'io.dapr', name: 'dapr-sdk', version: "1.3.1"
+    implementation group: 'io.dapr', name: 'dapr-sdk', version: "1.3.1"
     implementation group: 'io.dapr', name: 'dapr-sdk-actors', version: "1.3.1"
-//    implementation group: 'io.dapr', name: 'dapr-sdk-springboot', version: "1.3.1"
+    implementation group: 'io.dapr', name: 'dapr-sdk-springboot', version: "1.3.1"
 
-    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-webflux'
+    implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator'
+
+    compileOnly group: 'org.projectlombok', name: 'lombok'
+    annotationProcessor group: 'org.projectlombok', name: 'lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

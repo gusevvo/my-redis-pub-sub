@@ -21,7 +21,14 @@ public class CalculatorController : ControllerBase
         CancellationToken cancellationToken)
     {
         var guid = Guid.NewGuid().ToString();
-        var actorProxy = _actorProxyFactory.Create(new ActorId(guid), "CalculatorActor");
+        var actorId = new ActorId(guid);
+
+        var actorProxy = request.Runtime switch
+        {
+            Runtime.Dotnet => _actorProxyFactory.Create(actorId, "DotnetCalculatorActor"),
+            Runtime.Java => _actorProxyFactory.Create(actorId, "JavaCalculatorActor"),
+            _ => throw new ArgumentOutOfRangeException()
+        };
 
         var result = await actorProxy.InvokeMethodAsync<ExecuteCalculationRequestModel, object>("Execute", request, cancellationToken);
 

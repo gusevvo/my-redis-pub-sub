@@ -48,7 +48,7 @@ services:
     network_mode: "service:calculator-engine"
 
   calculator-runtime-dotnet:
-    container_name: "calculator-runtime"
+    container_name: "calculator-runtime-dotnet"
     image: calculator-runtime-dotnet
     build:
       context: ./MyRedisPusSub/Calculator.Runtime.Dotnet
@@ -59,7 +59,7 @@ services:
       - hello-dapr
 
   calculator-runtime-dotnet-sidecar:
-    container_name: "calculator-runtime-sidecar"
+    container_name: "calculator-runtime-dotnet-sidecar"
     image: "daprio/daprd:edge"
     command: [ "./daprd",
                "-app-id", "calculator-runtime-dotnet",
@@ -72,5 +72,30 @@ services:
       - calculator-runtime-dotnet
     network_mode: "service:calculator-runtime-dotnet"
 
+
+  calculator-runtime-java:
+    container_name: "calculator-runtime-java"
+    image: calculator-runtime-java
+    build:
+      context: ./Calculator.Runtime.Java
+      dockerfile: Dockerfile
+    depends_on:
+      - placement
+    networks:
+      - hello-dapr
+
+  calculator-runtime-java-sidecar:
+    container_name: "calculator-runtime-java-sidecar"
+    image: "daprio/daprd:edge"
+    command: [ "./daprd",
+               "-app-id", "calculator-runtime-java",
+               "-app-port", "3000",
+               "-placement-host-address", "placement:6000",
+               "-components-path", "/components" ]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - calculator-runtime-dotnet
+    network_mode: "service:calculator-runtime-java"
 networks:
   hello-dapr:
