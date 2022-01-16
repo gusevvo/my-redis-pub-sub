@@ -81,8 +81,6 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - placement
-    ports:
-      - "3000:3000"
     networks:
       - hello-dapr
 
