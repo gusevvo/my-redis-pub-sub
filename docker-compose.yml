@@ -2,8 +2,75 @@ version: '3'
 
 services:
 
-  redis:
-    image: redis
-    command: ["redis-server", "--save"]  # disable persistence
+  placement:
+    container_name: "placement"
+    image: "daprio/dapr"
+    command: ["./placement", "-port", "6000"]
     ports:
-      - "6379:6379"
+      - "6000:6000"
+    networks:
+      - hello-dapr
+
+  redis:
+    container_name: "redis"
+    image: "redis:alpine"
+    ports:
+      - "6380:6379"
+    networks:
+      - hello-dapr
+
+  calculator-engine:
+    container_name: "calculator-engine"
+    image: calculator-engine
+    build:
+      context: ./MyRedisPusSub/Calculator.Engine
+      dockerfile: Dockerfile
+    depends_on:
+       - placement
+       - calculator-runtime-dotnet
+    ports:
+      - "7050:80"
+    networks:
+      - hello-dapr
+
+  calculator-engine-sidecar:
+    container_name: "calculator-engine-sidecar"
+    image: "daprio/daprd:edge"
+    command: [ "./daprd",
+               "-app-id", "calculator-engine",
+               "-app-port", "80",
+               "-placement-host-address", "placement:6000",
+               "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - calculator-engine
+    network_mode: "service:calculator-engine"
+
+  calculator-runtime-dotnet:
+    container_name: "calculator-runtime"
+    image: calculator-runtime-dotnet
+    build:
+      context: ./MyRedisPusSub/Calculator.Runtime.Dotnet
+      dockerfile: Dockerfile
+    depends_on:
+      - placement
+    networks:
+      - hello-dapr
+
+  calculator-runtime-dotnet-sidecar:
+    container_name: "calculator-runtime-sidecar"
+    image: "daprio/daprd:edge"
+    command: [ "./daprd",
+               "-app-id", "calculator-runtime-dotnet",
+               "-app-port", "80",
+               "-placement-host-address", "placement:6000",
+               "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - calculator-runtime-dotnet
+    network_mode: "service:calculator-runtime-dotnet"
+
+networks:
+  hello-dapr:

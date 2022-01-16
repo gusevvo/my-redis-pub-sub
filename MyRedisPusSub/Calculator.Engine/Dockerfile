@@ -1,0 +1,21 @@
+﻿
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+
+COPY ["Calculator.Engine.csproj", "."]
+RUN dotnet restore "Calculator.Engine.csproj"
+COPY . .
+
+WORKDIR "/src"
+RUN dotnet build "Calculator.Engine.csproj" -c Release -o /app/build
+
+FROM build AS publish
+RUN dotnet publish "Calculator.Engine.csproj" -c Release -o /app/publish
+
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+
+ENTRYPOINT ["dotnet", "Calculator.Engine.dll"]
+
+

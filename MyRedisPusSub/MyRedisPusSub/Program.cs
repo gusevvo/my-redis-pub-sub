@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
+using MyRedisPusSub;
 using StackExchange.Redis;
-
 
 using var redis = ConnectionMultiplexer.Connect("127.0.0.1:6379");
 var channel = redis.GetSubscriber();
@@ -16,4 +16,7 @@ void HandleMessage(RedisChannel redisChannel, RedisValue redisValue)
 
 }
 
-internal record Sinus(int Alpha, double Value);
+namespace MyRedisPusSub
+{
+    internal record Sinus(int Alpha, double Value);
+}

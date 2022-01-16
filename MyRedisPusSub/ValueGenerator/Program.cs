@@ -1,5 +1,6 @@
 ﻿using System.Text.Json;
 using StackExchange.Redis;
+using ValueGenerator;
 using static System.Math;
 
 
@@ -20,5 +21,8 @@ while (true)
     await Task.Delay(1000);
 }
 
-internal record Sinus(int Alpha, double Value);
+namespace ValueGenerator
+{
+    internal record Sinus(int Alpha, double Value);
+}
 
