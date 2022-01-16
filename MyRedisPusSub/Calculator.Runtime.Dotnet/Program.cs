@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Calculator.Runtime.Dotnet.Actors;
 using Calculator.Runtime.Dotnet.Services;
 
@@ -10,6 +11,7 @@ builder.Services.AddTransient<IParametersTransformationService, ParametersTransf
 builder.Services.AddActors(options =>
 {
     options.Actors.RegisterActor<DotnetCalculatorActor>();
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 var app = builder.Build();
 

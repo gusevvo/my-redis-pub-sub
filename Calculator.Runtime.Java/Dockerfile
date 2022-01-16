@@ -1,7 +1,7 @@
 FROM adoptopenjdk/openjdk16:alpine AS build
 WORKDIR ./gradlew
 COPY ./ .
-RUN ./gradlew -x build
+RUN ./gradlew -x test build
 
 FROM adoptopenjdk/openjdk16:alpine-jre
 ENV USER=CalculatorRuntimeJava
@@ -14,7 +14,7 @@ RUN addgroup -g 1001 -S $USER && \
 
 USER $USER
 
-COPY  --from=build ./gradlew/build/libs/${USER}.jar ./
+COPY --from=build ./gradlew/build/libs/${USER}.jar ./
 
 ENTRYPOINT ["sh", "-c", "\
 java \

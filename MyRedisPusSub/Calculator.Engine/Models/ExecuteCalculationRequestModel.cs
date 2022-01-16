@@ -5,7 +5,11 @@ public record ExecuteCalculationRequestModel(
     Runtime Runtime,
     ICollection<ParameterModel> Parameters);
 
-public record ParameterModel(string Alias, string Value, ParameterType ParameterType);
+public record ExecuteCalculationCommand(
+    string Expression,
+    ICollection<ParameterModel> Parameters);
+
+public record ParameterModel(string Alias, string Value, ParameterType Type);
 
 public enum ParameterType
 {

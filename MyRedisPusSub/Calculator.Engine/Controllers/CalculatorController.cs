@@ -30,7 +30,8 @@ public class CalculatorController : ControllerBase
             _ => throw new ArgumentOutOfRangeException()
         };
 
-        var result = await actorProxy.InvokeMethodAsync<ExecuteCalculationRequestModel, object>("Execute", request, cancellationToken);
+        var command = new ExecuteCalculationCommand(request.Expression, request.Parameters);
+        var result = await actorProxy.InvokeMethodAsync<ExecuteCalculationCommand, object>("Execute", command, cancellationToken);
 
         return Ok(result);
     }

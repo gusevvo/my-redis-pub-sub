@@ -81,6 +81,8 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - placement
+    ports:
+      - "3000:3000"
     networks:
       - hello-dapr
 
@@ -97,5 +99,6 @@ services:
     depends_on:
       - calculator-runtime-dotnet
     network_mode: "service:calculator-runtime-java"
+
 networks:
   hello-dapr:

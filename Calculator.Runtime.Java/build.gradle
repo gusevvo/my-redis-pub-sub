@@ -28,6 +28,8 @@ dependencies {
     compileOnly group: 'org.projectlombok', name: 'lombok'
     annotationProcessor group: 'org.projectlombok', name: 'lombok'
 
+    implementation group: 'org.mvel', name: 'mvel2', version: "2.4.12.Final"
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
