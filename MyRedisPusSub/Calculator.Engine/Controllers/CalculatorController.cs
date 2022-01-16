@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Calculator.Engine.Controllers;
 
 [ApiController]
-[Route("/calculator")]
+[Route("/calculation")]
 public class CalculatorController : ControllerBase
 {
     private readonly IActorProxyFactory _actorProxyFactory;
@@ -16,12 +16,13 @@ public class CalculatorController : ControllerBase
         _actorProxyFactory = actorProxyFactory;
     }
 
-    [HttpPost("execute", Name = "ExecuteCalculation")]
-    public async Task<IActionResult> ExecuteCalculation(ExecuteCalculationRequestModel request,
+    [HttpPost("{id:guid}/execute", Name = "ExecuteCalculation")]
+    public async Task<IActionResult> ExecuteCalculation(
+        [FromRoute] Guid id,
+        [FromBody] ExecuteCalculationRequestModel request,
         CancellationToken cancellationToken)
     {
-        var guid = Guid.NewGuid().ToString();
-        var actorId = new ActorId(guid);
+        var actorId = new ActorId(id.ToString());
 
         var actorProxy = request.Runtime switch
         {
