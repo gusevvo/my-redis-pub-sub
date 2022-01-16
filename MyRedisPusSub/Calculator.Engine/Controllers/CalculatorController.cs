@@ -23,20 +23,7 @@ public class CalculatorController : ControllerBase
         var guid = Guid.NewGuid().ToString();
         var actorProxy = _actorProxyFactory.Create(new ActorId(guid), "CalculatorActor");
 
-        var result = await actorProxy.InvokeMethodAsync<ExecuteCalculationRequestModel, object>("ExecuteAsync", request, cancellationToken);
-
-        return Ok(result);
-    }
-
-
-    [HttpPost("twice", Name = "Twice")]
-    public async Task<IActionResult> Twice(int value,
-        CancellationToken cancellationToken)
-    {
-        var guid = Guid.NewGuid().ToString();
-        var actorProxy = _actorProxyFactory.Create(new ActorId(guid), "CalculatorActor");
-
-        var result = await actorProxy.InvokeMethodAsync<int, int>("TwiceAsync", value, cancellationToken);
+        var result = await actorProxy.InvokeMethodAsync<ExecuteCalculationRequestModel, object>("Execute", request, cancellationToken);
 
         return Ok(result);
     }
