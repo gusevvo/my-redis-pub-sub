@@ -16,7 +16,7 @@ public class Application {
         var daprSerializer = new ISO8601DaprObjectSerializer();
         ActorRuntime.getInstance().registerActor(JavaCalculatorActorImpl.class, daprSerializer, daprSerializer);
 
-        log.info("We are here v6");
+        log.info("We are here v7");
         try {
             SpringApplication.run(Application.class, args);
         } catch (Exception ex) {
