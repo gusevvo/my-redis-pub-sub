@@ -19,6 +19,14 @@ services:
     networks:
       - hello-dapr
 
+  rabbitmq:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - hello-dapr
+
   calculator-engine:
     container_name: "calculator-engine"
     image: calculator-engine

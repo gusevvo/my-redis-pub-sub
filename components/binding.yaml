@@ -1,0 +1,29 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: value
+  # namespace: <NAMESPACE>
+spec:
+  type: bindings.rabbitmq
+  version: v1
+  metadata:
+  - name: host
+    value: amqp://guest:guest@rabbitmq:5672
+  - name: exchangeName
+    value: dapr-test
+  - name: queueName
+    value: dapr-test-values
+  - name: durable
+    value: false
+#   - name: deleteWhenUnused
+#     value: false
+#   - name: ttlInSeconds
+#     value: 60
+#   - name: prefetchCount
+#     value: 0
+#   - name: exclusive
+#     value: false
+#   - name: maxPriority
+#     value: 5
+# - name: contentType
+#   value: "text/plain"

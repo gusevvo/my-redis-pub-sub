@@ -10,10 +10,14 @@ namespace Calculator.Engine.Controllers;
 public class CalculatorController : ControllerBase
 {
     private readonly IActorProxyFactory _actorProxyFactory;
+    private readonly ILogger<CalculatorController> _logger;
 
-    public CalculatorController(IActorProxyFactory actorProxyFactory)
+    public CalculatorController(
+        IActorProxyFactory actorProxyFactory,
+        ILogger<CalculatorController> logger)
     {
         _actorProxyFactory = actorProxyFactory;
+        _logger = logger;
     }
 
     [HttpPost("{id:guid}/execute", Name = "ExecuteCalculation")]
@@ -35,5 +39,17 @@ public class CalculatorController : ControllerBase
         var result = await actorProxy.InvokeMethodAsync<ExecuteCalculationCommand, object>("Execute", command, cancellationToken);
 
         return Ok(result);
+    }
+
+    [HttpPost("/value", Name = "PushValue")]
+    public async Task<IActionResult> PushValue(
+        [FromBody] ParameterValueModel message,
+        CancellationToken cancellationToken)
+    {
+        await Task.Yield();
+
+        _logger.LogInformation("Received: {message}", message);
+
+        return Ok();
     }
 }
